@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import com.sendgrid.*;
 
+import java.io.IOException;
+
 @Slf4j
 public class SendGridSmtpSendEmailService implements SendEmailService{
 
@@ -39,7 +41,7 @@ public class SendGridSmtpSendEmailService implements SendEmailService{
             System.out.println(response.getStatusCode());
             System.out.println(response.getBody());
             System.out.println(response.getHeaders());
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             log.error("Erro smtp {}", ex);
             throw new EmailException("Não foi possível enviar o email", ex);
         }

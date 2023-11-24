@@ -26,6 +26,7 @@ public class GmailSmtpSendEmailService implements SendEmailService{
     public void send(Message message) {
         try {
             var msg = new SimpleMailMessage();
+            msg.setFrom(emailProperties.getSender());
             msg.setTo(message.getReceiver());
             msg.setSubject(message.getSubject());
             msg.setText(message.getBody());
