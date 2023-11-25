@@ -27,4 +27,5 @@ public class Order implements Serializable {
     private String cpfCustomer;
     private String zipCode;
     private String email;
+    private Endereco endereco;
 }
