@@ -1,4 +1,4 @@
-package com.eskcti.workercompras.services.emails;
+package com.eskcti.workercompras.services.exceptions;
 
 public class EmailException extends RuntimeException {
 
