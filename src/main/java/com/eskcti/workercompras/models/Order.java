@@ -28,4 +28,6 @@ public class Order implements Serializable {
     private String zipCode;
     private String email;
     private Endereco endereco;
+
+    private Card card;
 }
