@@ -1,6 +1,8 @@
 package com.eskcti.workercompras.services.emails;
 
 import com.eskcti.workercompras.models.Order;
+import com.eskcti.workercompras.services.producer.Producer;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -11,13 +13,13 @@ import java.util.Collections;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
+    private final SendEmailService sendEmail;
+    private final Producer producer;
 
-    @Autowired
-    private SendEmailService sendEmail;
     public void notificarClient(Order order) {
         try {
             var message = SendEmailService.Message.builder()
@@ -31,6 +33,8 @@ public class EmailService {
             sendEmail.send(message);
             log.info("order email {}: {} ", order.getEmail(), order);
             log.info("Cliente notificado com sucesso!!");
+
+            producer.sendOrder(order);
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
